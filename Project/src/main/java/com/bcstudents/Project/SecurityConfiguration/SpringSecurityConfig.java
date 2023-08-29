@@ -58,21 +58,24 @@ public class SpringSecurityConfig {
         return new ProviderManager(providers);
     }
 
-    //security filter chain checks the http request from the client
-    //if requested route matches http request it checks permissions for that route, if the permission matches it checks the controllers for that route
+    // security filter chain checks the http request from the client
+    // if requested route matches http request it checks permissions for that route,
+    // if the permission matches it checks the controllers for that route
 
     @Bean
     public SecurityFilterChain filterSecurity(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/register","/redirectByRole").permitAll()
+                        .requestMatchers("/", "/login", "/register", "/redirectByRole").permitAll()
                         .requestMatchers("/student/**").hasRole("USER") // Define the URL pattern for USER role
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Define the URL pattern for ADMIN role
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-                        .loginPage("/login") // spring has a default login form -> this overrides it and displays the form that is chosen
+                        .loginPage("/login") // spring has a default login form -> this overrides it and displays the
+                                             // form that is chosen
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/redirectByRole", true) // if login is succesfull it redirects users to redirectByRole route
+                        .defaultSuccessUrl("/redirectByRole", true) // if login is succesfull it redirects users to
+                                                                    // redirectByRole route
                         .permitAll())
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

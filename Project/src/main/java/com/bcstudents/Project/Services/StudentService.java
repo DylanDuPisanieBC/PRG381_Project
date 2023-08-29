@@ -17,26 +17,26 @@ import com.bcstudents.Project.Models.Student;
 import com.bcstudents.Project.Repository.StudentsRepository;
 
 @Service
-public class StudentService implements UserDetailsService{
-    
-    @Autowired
-    StudentsRepository repo;
+public class StudentService implements UserDetailsService {
 
-    public Student getStudentById(int studentId) {
+   @Autowired
+   StudentsRepository repo;
+
+   public Student getStudentById(int studentId) {
       return repo.findById(studentId).get();
-   } 
+   }
 
    public List<Student> getAllStudents() {
       List<Student> students = new ArrayList<Student>();
       repo.findAll().forEach(student -> students.add(student));
-      return  students;
+      return students;
    }
 
    @Override
    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
       Student student = repo.findByUsernameOrEmail(username);
       if (student == null) {
-        throw new UsernameNotFoundException("Username not found: " + username);
+         throw new UsernameNotFoundException("Username not found: " + username);
       }
 
       // Create a collection of a single granted authority (role)
@@ -47,7 +47,12 @@ public class StudentService implements UserDetailsService{
       UserDetails userDetails = new User(student.getUsername(), student.getPassword(), authorities);
 
       return userDetails;
-      
+
+   }
+
+   public Integer getStudentIdByUsername(String username) {
+      Student student = repo.findByUsernameOrEmail(username);
+      return student != null ? student.getStudent_id() : null;
    }
 
 }

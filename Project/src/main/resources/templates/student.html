@@ -26,11 +26,40 @@
 </header>
 
 <div class="container">
-    <div class="row">
-        <h1>Student Info Panel</h1>
-        <h2>This is the Student Page</h2>
+    <div class="row" style="width: 60%;">
+        <div class="card mb-4 shadow">
+            <div class="card-body">
+                <div class="row">
+                    <p class="mb-4" style="font-size: 25px;">Student Info</p>
+                    <div class="col-sm-3">
+                        <p class="mb-0">Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0"><span th:text="${student.getStudent_name()}"></span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0"><span th:text="${student.getStudent_email()}"></span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Address</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0"><span th:text="${student.getStudent_address()}"></span></p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
     </div>
-</div>
 
 
 </html>

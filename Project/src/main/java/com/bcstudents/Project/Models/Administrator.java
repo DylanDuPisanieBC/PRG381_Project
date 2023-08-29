@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "administrator")
-public class Administrator{
+public class Administrator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Administrator{
     @Column
     private String role;
 
-    public Administrator(){
+    public Administrator() {
         super();
         this.role = "ADMIN";
     }
@@ -38,11 +38,11 @@ public class Administrator{
         this.role = role;
     }
 
-    public String getContact(){
+    public String getContact() {
         return this.admin_contact;
     }
 
-    public void setContact(String contact){
+    public void setContact(String contact) {
         this.admin_contact = contact;
     }
 
@@ -58,7 +58,7 @@ public class Administrator{
         return this.admin_password;
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.admin_password = password;
     }
 
@@ -66,8 +66,8 @@ public class Administrator{
         return this.admin_name;
     }
 
-    public void setUsername(String name){
+    public void setUsername(String name) {
         this.admin_name = name;
     }
-    
+
 }

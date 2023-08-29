@@ -33,20 +33,16 @@ public class RegisterController {
                 form.getRegister_email(), encoder.encode(form.getPassword()), form.getCourse_name());
 
         if (userToRegister.isValid() == true) {
-            System.out.println(userToRegister.Display());
+            Boolean added = service.AddRegistration(userToRegister);
+
+            if (added) {
+                mode.addAttribute("registerSuccess", added);
+            } else {
+                mode.addAttribute("registerFailed", !added);
+            }
         } else {
             System.out.println("User Invalid");
         }
-
-        /*
-         * Boolean added = service.AddRegistration(userToRegister);
-         * 
-         * if (added) {
-         * mode.addAttribute("registerSuccess", added);
-         * } else {
-         * mode.addAttribute("registerFailed", !added);
-         * }
-         */
 
         return "register";
     }

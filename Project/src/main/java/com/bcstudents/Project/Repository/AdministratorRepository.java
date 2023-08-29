@@ -8,9 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.bcstudents.Project.Models.Administrator;
 
 @Repository
-public interface AdministratorRepository extends JpaRepository<Administrator, Integer>{
+public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
     @Query("SELECT a FROM Administrator a WHERE a.admin_name = :adminName")
     Administrator findByAdminName(@Param("adminName") String adminName);
-}  
-    
-
+}

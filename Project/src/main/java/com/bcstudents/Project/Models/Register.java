@@ -1,6 +1,5 @@
 package com.bcstudents.Project.Models;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="register")
-public class Register{
+@Table(name = "register")
+public class Register {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +28,7 @@ public class Register{
     @Column
     private String course_name;
 
-    public Register(){
+    public Register() {
         super();
         this.role = "USER";
     }
@@ -45,8 +44,6 @@ public class Register{
         this.course_name = course_name;
         this.role = "ROLE_USER";
     }
-
-    
 
     public Integer getRegister_id() {
         return register_id;
@@ -92,7 +89,6 @@ public class Register{
         return this.register_password;
     }
 
-
     public String getUsername() {
         return this.register_name;
     }
@@ -112,11 +108,12 @@ public class Register{
     public String getCourse_name() {
         return this.course_name;
     }
- 
-    
-    public String Display(){
 
-        return "\nid: " + this.register_id + "\nname: " + this.register_name + "\nemail: "+ this.register_email + "\naddress: "+ this.register_address + "\npassword: "+ this.register_password + "\ncourse: "+ this.course_name + "\nrole: " + this.role;
+    public String Display() {
+
+        return "\nid: " + this.register_id + "\nname: " + this.register_name + "\nemail: " + this.register_email
+                + "\naddress: " + this.register_address + "\npassword: " + this.register_password + "\ncourse: "
+                + this.course_name + "\nrole: " + this.role;
 
     }
 
@@ -128,9 +125,10 @@ public class Register{
         this.course_name = course_name;
     }
 
-    public Boolean isValid(){
+    public Boolean isValid() {
 
-        if(this.course_name.length() > 0 && this.register_address.length() > 0 && this.register_password.length() > 0 && this.register_email.length() > 0 && this.register_name.length() > 0){
+        if (this.course_name.length() > 0 && this.register_address.length() > 0 && this.register_password.length() > 0
+                && this.register_email.length() > 0 && this.register_name.length() > 0) {
             return true;
         }
 

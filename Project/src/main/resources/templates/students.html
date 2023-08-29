@@ -22,19 +22,9 @@
     .student-table th {
         background-color: #f2f2f2;
     }
-
-    .card {
-        width: 45%;
-        height: 60%;
-        transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-        transform: scale(1.05);
-    }
 </style>
 
-<body style="background-color: #090b12;">
+<body>
     <header
         class="bg-dark d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <div class="col-md-3 mb-2 mb-md-0">
@@ -56,27 +46,27 @@
 
     <body>
         <div class="container">
-            <h2 style="align-self: center; text-align: center; color: white;">Select an option</h2>
-            <div
-                style="display: flex; justify-content: center; align-items: center; height: 100%; padding-bottom: 200px;">
+            <div class="row">
 
-                <div class="card" style="width: 45%; margin-right: 20px; height: 60%;" id="showRegistrations">
-                    <img class="card-img-top" src="/RegisterImage.jpg" style="object-fit: contain;"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-title mt-3 text-light" style="font-size: 25px; font-weight: 100;">Registrations
-                        </p>
-                        <p class="card-text text-light">See and manage your pending registrations here.</p>
-                    </div>
-                </div>
-
-                <div class="card" style="width: 45%;  height: 60%;" id="showStudents">
-                    <img class="card-img-top" src="/StudentImage.jpg" style="object-fit: contain;" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-title mt-3 text-light" style="font-size: 25px; font-weight: 100;">Students</p>
-                        <p class="card-text text-light">See and manage your pending registrations here.</p>
-                    </div>
-                </div>
+                <h2>Students</h2>
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="student : ${students}">
+                            <td th:text="${student.getStudent_id()}"></td>
+                            <td th:text="${student.getStudent_name()}"></td>
+                            <td th:text="${student.getStudent_address()}"></td>
+                            <td th:text="${student.getStudent_email()}"></td>
+                        </tr>
+                    </tbody>
+                </table>
 
             </div>
 
@@ -86,11 +76,8 @@
 </html>
 
 <script type="text/javascript">
-    document.getElementById("showRegistrations").onclick = function () {
-        location.href = "/admin/registrations";
+    document.getElementById("LogoutButton").onclick = function () {
+        location.href = "/logout";
     };
 
-    document.getElementById("showStudents").onclick = function () {
-        location.href = "/admin/students";
-    };
 </script>

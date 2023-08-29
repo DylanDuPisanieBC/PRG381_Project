@@ -2,7 +2,6 @@ package com.bcstudents.Project.Services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,18 +17,12 @@ import com.bcstudents.Project.Repository.AdministratorRepository;
 
 @Service
 public class AdministratorService implements UserDetailsService {
-    
-    @Autowired
-    AdministratorRepository repo;
 
-    public Administrator getAdminById(int admin_id) {
+   @Autowired
+   AdministratorRepository repo;
+
+   public Administrator getAdminById(int admin_id) {
       return repo.findById(admin_id).get();
-   } 
-
-   public List<Administrator> getAllStudents() {
-      List<Administrator> admins = new ArrayList<Administrator>();
-      repo.findAll().forEach(admin -> admins.add(admin));
-      return  admins;
    }
 
    // method implemented by UserDetailService class
@@ -38,7 +31,7 @@ public class AdministratorService implements UserDetailsService {
    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
       Administrator admin = repo.findByAdminName(username);
       if (admin == null) {
-        throw new UsernameNotFoundException("Username not found: " + username);
+         throw new UsernameNotFoundException("Username not found: " + username);
       }
 
       // Create a collection of a single granted authority (role)
@@ -49,6 +42,6 @@ public class AdministratorService implements UserDetailsService {
       UserDetails userDetails = new User(admin.getUsername(), admin.getPassword(), authorities);
 
       return userDetails;
-   } 
+   }
 
 }
