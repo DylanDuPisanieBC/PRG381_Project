@@ -35,13 +35,13 @@ public class Register{
     }
 
     public Register(Integer register_id, String register_name, String register_address, String register_email,
-            String register_password, String role) {
+            String register_password) {
         this.register_id = register_id;
         this.register_name = register_name;
         this.register_address = register_address;
         this.register_email = register_email;
         this.register_password = register_password;
-        this.role = role;
+        this.role = "ROLE_USER";
     }
 
     public Integer getRegister_id() {
