@@ -34,7 +34,7 @@ public class RegisterController {
         if(added){
             mode.addAttribute("registerSuccess", added);
         }else{
-            mode.addAttribute("registerSuccess", !added);
+            mode.addAttribute("registerSuccess", added);
         }
 
         return "register";
