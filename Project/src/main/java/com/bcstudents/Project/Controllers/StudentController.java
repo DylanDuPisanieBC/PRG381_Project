@@ -10,6 +10,6 @@ public class StudentController {
     public String student() {
         return "student";
     }
-
+    
 }
 

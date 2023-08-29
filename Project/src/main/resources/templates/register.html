@@ -31,6 +31,10 @@
                     <div class="alert alert-success">You have been logged out.</div>
                 </div>
 
+                <div th:if="${showMessage}">
+                    <div class="alert alert-danger">Your Custom Message Here</div>
+                </div>
+
                 <div class="card">
                     <div class="card-header">
                         <h2 class="text-center">Register</h2>
