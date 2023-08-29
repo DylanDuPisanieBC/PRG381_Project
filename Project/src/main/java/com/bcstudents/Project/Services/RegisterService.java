@@ -1,17 +1,29 @@
 package com.bcstudents.Project.Services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import com.bcstudents.Project.Models.Administrator;
 import com.bcstudents.Project.Models.Register;
 import com.bcstudents.Project.Repository.RegisterRepository;
 
+@Service
 public class RegisterService implements UserDetailsService {
 
     @Autowired
     RegisterRepository repo;
+
+    public List<Register> getAllRegistrations() {
+      List<Register> registrations = new ArrayList<Register>();
+      repo.findAll().forEach(registration -> registrations.add(registration));
+      return  registrations;
+   }
 
     public boolean AddRegistration(Register registration) {
 
@@ -26,9 +38,12 @@ public class RegisterService implements UserDetailsService {
         return false;
     }
 
+
     public Boolean findRegistration(Register registration) {
 
-        if (repo.findByEmail(registration.getRegister_email()).getRegister_email() == registration.getRegister_email()) {
+        
+        if (repo.findByEmail(registration.getRegister_email()) != null) {
+
             return true;
         }
         return false;

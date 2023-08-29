@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.bcstudents.Project.Models.Register;
 
 @Repository
-public interface RegisterRepository extends JpaRepository<Register, Integer>{
-    @Query("SELECT r FROM register r WHERE r.register_email = :registerEmail")
-    Register findByEmail(@Param("registerEmail") String usernameOrEmail);
+public interface RegisterRepository extends JpaRepository<Register, Integer> {
+    @Query("SELECT r FROM Register r WHERE r.register_email = :registerEmail")
+    Register findByEmail(@Param("registerEmail") String Email);
 }

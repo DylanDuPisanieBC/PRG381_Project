@@ -23,11 +23,11 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
 
-                <div th:if="${loginSuccess}">
-                    <div class="alert alert-danger">Invalid Username or Password</div>
+                <div th:if="${registerSuccess}">
+                    <div class="alert alert-danger">Registration Worked</div>
                 </div>
-                <div th:if="${!loginSuccess}">
-                    <div class="alert alert-success">You have been logged out.</div>
+                <div th:if="${registerFailed}">
+                    <div class="alert alert-success">Nope</div>
                 </div>
 
                 <div class="card">
@@ -35,36 +35,43 @@
                         <h2 class="text-center">Register</h2>
                     </div>
                     <div class="card-body">
-                        <form method="post" role="form" th:action="@{/login}" class="form-horizontal">
+                        <form method="post" id="registerForm" role="form" th:action="@{/register}"
+                            class="form-horizontal">
 
                             <div class="form-group mb-3">
                                 <label class="control-label"> Name</label>
-                                 <input type="text" id="name" name="name" 
-                                 class="form-control" placeholder="Enter username" />
+                                <input type="text" id="register_name" name="register_name" class="form-control"
+                                    placeholder="Enter username" required="true" />
                             </div>
 
                             <div class="form-group mb-3">
-                                <label class="control-label"> Address</label> 
-                                <input type="text" id="address" name="address" 
-                                class="form-control" placeholder="Enter password" />
+                                <label class="control-label"> Address</label>
+                                <input type="text" id="register_address" name="register_address" class="form-control"
+                                    placeholder="Enter password" required="true" />
                             </div>
 
                             <div class="form-group mb-3">
                                 <label class="control-label"> Email</label>
-                                 <input type="email" id="email" name="email" 
-                                 class="form-control" placeholder="Enter email" />
+                                <input type="email" id="register_email" name="register_email" class="form-control"
+                                    placeholder="Enter email" required="true"/>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label class="control-label"> Password</label> 
-                                <input type="password" id="password" name="password" 
-                                class="form-control" placeholder="Enter password" />
+                                <label class="control-label"> Password</label>
+                                <input type="password" id="register_password" name="register_password"
+                                    class="form-control" placeholder="Enter password" required="true" />
                             </div>
 
-                            <div class="form-group mb-3">
-                                <label class="control-label"> Course Name</label>
-                                 <input type="text" id="coursename" name="coursename" 
-                                 class="form-control" placeholder="Enter Course Name" />
+                            <div class="form-group mb-3" style="display: flex; flex-direction: column;">
+                                <label class="control-label" for="course_name">Choose a course</label>
+                                <select id="course_name" name="course_name" style="width: 120px;">
+                                    <option value="LPR381">LPR381</option>
+                                    <option value="PRG381">PRG381</option>
+                                    <option value="MLG381">MLG381</option>
+                                    <option value="SEN381">SEN381</option>
+                                    <option value="WPR381">WPR381</option>
+                                    <option value="PROJ381">PROJ381</option>
+                                </select>
                             </div>
 
                             <div class="form-group mb-3">

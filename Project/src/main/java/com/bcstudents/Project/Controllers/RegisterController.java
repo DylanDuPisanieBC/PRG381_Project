@@ -1,6 +1,7 @@
 package com.bcstudents.Project.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,9 @@ import com.bcstudents.Project.Services.RegisterService;
 
 @Controller
 public class RegisterController {
-    
+
+    BCryptPasswordEncoder encoder;
+
     @Autowired
     RegisterService service;
 
@@ -22,20 +25,28 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    @ModelAttribute
-    public String registerStudent(Register form, Model mode){
-        
-        Register userToRegister = new Register(1, "test", "somewhere st", "email@email.com", "password");
-        Boolean added = false;
+    public String registerStudent(@ModelAttribute("registerForm") Register form, Model mode) {
 
-        added = service.AddRegistration(userToRegister);
+        encoder = new BCryptPasswordEncoder();
 
+        Register userToRegister = new Register(0, form.getUsername(), form.getRegister_address(),
+                form.getRegister_email(), encoder.encode(form.getPassword()), form.getCourse_name());
 
-        if(added){
-            mode.addAttribute("registerSuccess", added);
-        }else{
-            mode.addAttribute("registerSuccess", added);
+        if (userToRegister.isValid() == true) {
+            System.out.println(userToRegister.Display());
+        } else {
+            System.out.println("User Invalid");
         }
+
+        /*
+         * Boolean added = service.AddRegistration(userToRegister);
+         * 
+         * if (added) {
+         * mode.addAttribute("registerSuccess", added);
+         * } else {
+         * mode.addAttribute("registerFailed", !added);
+         * }
+         */
 
         return "register";
     }
