@@ -26,6 +26,8 @@ public class Register{
     private String register_password;
     @Column
     private String role;
+    @Column
+    private String course_name;
 
     public Register(){
         super();
