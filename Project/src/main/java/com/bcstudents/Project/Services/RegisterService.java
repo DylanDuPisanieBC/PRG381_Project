@@ -2,6 +2,7 @@ package com.bcstudents.Project.Services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.bcstudents.Project.Models.Register;
-import com.bcstudents.Project.Models.Student;
 import com.bcstudents.Project.Repository.RegisterRepository;
 import com.bcstudents.Project.Repository.StudentsRepository;
 
@@ -28,22 +28,21 @@ public class RegisterService implements UserDetailsService {
         return registrations;
     }
 
+    public List<Register> getAllRegistrationsPending() {
+    return repo.findAll().stream()
+            .filter(registration -> "Pending".equals(registration.getStatus()))
+            .collect(Collectors.toList());
+}
+
     public void declineRegistration(Integer id) {
         repo.delete(repo.findById(id).get());
-        ;
 
     }
 
     public void acceptRegistration(Integer id) {
         Register reg = repo.findById(id).get();
-        Student student = new Student(0, reg.getRegister_name(), reg.getRegister_address(), reg.getRegister_email(),
-                reg.getPassword());
-        try {
-            studentRepo.save(student);
-            repo.delete(reg);
-        } catch (Exception e) {
-            System.out.println("Failed to Accept Student:" + e.getMessage() + student.Display());
-        }
+        reg.setStatus(true);
+        repo.save(reg);
 
     }
 

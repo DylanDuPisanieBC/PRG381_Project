@@ -72,6 +72,14 @@ public class StudentService implements UserDetailsService {
       return false;
    }
 
+   public void removeStudent(Integer id) {
+
+      Student student = repo.findById(id).get();
+
+      if(student != null) { repo.delete(student);}
+
+   }
+
    public Boolean findStudent(Student student) {
 
       if (repo.findByUsernameOrEmail(student.getStudent_email()) != null) {

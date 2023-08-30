@@ -39,8 +39,8 @@ public class AdministratorController {
     @GetMapping("/admin/registrations")
     public String adminRegistrations(Model model) {
 
-        List<Register> registration = serviceRegistration.getAllRegistrations();
-
+        List<Register> registration = serviceRegistration.getAllRegistrationsPending();
+        
         model.addAttribute("registration", registration);
 
         // create students with registrations for admin use
@@ -57,6 +57,15 @@ public class AdministratorController {
         model.addAttribute("students", students);
 
         return "students";
+
+    }
+
+    @GetMapping("/admin/students/remove/{id}")
+    public String adminStudents(@PathVariable Integer id) {
+
+        serviceStudents.removeStudent(id);
+
+        return "redirect:/admin/students";
 
     }
 

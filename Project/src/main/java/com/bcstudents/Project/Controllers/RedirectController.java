@@ -27,7 +27,7 @@ public class RedirectController {
         if (authentication != null) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-                // ...
+                return "redirect:/admin";
             } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
                 UserDetails userDetails = (UserDetails) authentication.getPrincipal();
                 String username = userDetails.getUsername();
