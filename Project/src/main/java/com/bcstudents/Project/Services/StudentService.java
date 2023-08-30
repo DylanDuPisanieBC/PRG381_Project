@@ -145,6 +145,17 @@ public class StudentService implements UserDetailsService {
       
       Student student = new Student(studentNew.getStudent_id(), studentNew.getStudent_name(), studentNew.getStudent_address(), studentNew.getStudent_email(), studentNew.getPassword());
 
+
+
+      List<Register> registerList = repoRegister.findAllByEmail(original.getStudent_email());
+
+      for (Register register : registerList) {
+          register.setRegister_email(student.getStudent_email());
+          register.setRegister_password(encoder.encode(student.getPassword()));
+          repoRegister.save(register);
+      }
+
+
       List<Register> registerListOriginal = repoRegister.findAllByEmail(original.getStudent_email());
 
       for (Register register : registerListOriginal) {
@@ -155,9 +166,9 @@ public class StudentService implements UserDetailsService {
          newRegister.setRegister_name(student.getStudent_name());
          newRegister.setRegister_address(student.getStudent_address());
          newRegister.setRegister_email(student.getStudent_email());
-         newRegister.setRegister_password(student.getPassword());
          newRegister.setStatus(register.getStatusBool());
-
+         newRegister.setCourse_name(register.getCourse_name());
+         newRegister.setRegister_password(encoder.encode(student.getPassword()));
          repoRegister.save(newRegister);
 
       }
