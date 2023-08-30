@@ -6,6 +6,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
+<style>
+
+.text-orange {
+    color: orangered;
+}
+
+.text-green {
+    color: green;
+}
+
+
+</style>
+
 <header
     class="bg-dark d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
     <div class="col-md-3 mb-2 mb-md-0">
@@ -24,10 +37,11 @@
         <button id="LogoutButton" class="btn btn-outline-warning me-2">Logout</button>
     </div>
 </header>
-
+<body  style="background-color: #202020;">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="container">
-    <div class="row" style="width: 60%;">
-        <div class="card mb-4 shadow">
+    <div class="row">
+        <div class="card mb-4 shadow" style="width: 60%;">
             <div class="card-body">
                 <div class="row">
                     <p class="mb-4" style="font-size: 25px;">Student Info</p>
@@ -61,9 +75,64 @@
         </div>
     </div>
 
+    <div class="row">
+    <div class="card mb-4 shadow" style="width: 30%;">
+        <p class="m-3" style="font-size: 25px;">Register for a Course</p>
+        <div class="form-group ms-4 mb-4" style="display: flex; flex-direction: column;">
+            <label class="control-label" for="course_name">Choose a course</label>
+            <form  method="post" id="courseInfo" role="form" th:action="@{/student/{id}(id=${id})}">
+            <select id="course_name" name="course_name" style="width: 120px;">
+                <option value="LPR381">LPR381</option>
+                <option value="PRG381">PRG381</option>
+                <option value="MLG381">MLG381</option>
+                <option value="SEN381">SEN381</option>
+                <option value="WPR381">WPR381</option>
+                <option value="PROJ381">PROJ381</option>
+            </select>
+            <button type="submit" class="btn btn-success align-self-center">Register</button>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4" style="padding: 0px;">
+        <div class="card mb-4 shadow">
+            <div class="card-body">
+                <div class="row">
+                    <p class="mb-4" style="font-size: 25px;">Courses Info</p>
+                </div>
+                <hr>
+                <div th:each="register : ${courses}">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="text-muted mb-0" th:text="${register.getCourse_name()}"></p>
+                        </div>
+                        <div class="col-sm-5">
+                            <p class="mb-0" th:text="${register.getStatus()}" th:classappend="${register.getStatus() == 'Pending' ? 'text-orange' : (register.getStatus() == 'Active' ? 'text-green' : '')}"></p>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card mb-4 shadow" style="width: 50%;">
+            <div class="card-body">
+                <p>If your course is not in the list, it has been declined!</p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    
+        
+
+    
 
 </html>
-
+</body>
 <script type="text/javascript">
     document.getElementById("LogoutButton").onclick = function () {
         location.href = "/logout";

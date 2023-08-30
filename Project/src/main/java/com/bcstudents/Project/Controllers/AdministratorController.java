@@ -19,6 +19,7 @@ public class AdministratorController {
 
     @Autowired
     RegisterService serviceRegistration;
+    
     @Autowired
     StudentService serviceStudents;
 

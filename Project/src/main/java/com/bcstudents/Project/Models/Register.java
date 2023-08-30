@@ -16,17 +16,19 @@ public class Register {
     @Column
     private Integer register_id;
     @Column
-    private String register_name;
+    private String student_name;
     @Column
-    private String register_address;
-    @Column(unique = true)
-    private String register_email;
+    private String student_address;
     @Column
-    private String register_password;
+    private String student_email;
+    @Column
+    private String student_password;
     @Column
     private String role;
     @Column
     private String course_name;
+    @Column
+    private String status;
 
     public Register() {
         super();
@@ -37,12 +39,25 @@ public class Register {
             String register_password, String course_name) {
 
         this.register_id = register_id;
-        this.register_name = register_name;
-        this.register_address = register_address;
-        this.register_email = register_email;
-        this.register_password = register_password;
+        this.student_name = register_name;
+        this.student_address = register_address;
+        this.student_email = register_email;
+        this.student_password = register_password;
         this.course_name = course_name;
         this.role = "ROLE_USER";
+        this.status = "Pending";
+    }
+
+    public String getStatus(){
+        return this.status;
+    }
+
+    public void setStatus(boolean state){
+        if(state){
+            this.status = "Active";
+        }else{
+            this.status = "Pending";
+        }
     }
 
     public Integer getRegister_id() {
@@ -54,27 +69,27 @@ public class Register {
     }
 
     public void setRegister_name(String register_name) {
-        this.register_name = register_name;
+        this.student_name = register_name;
     }
 
     public String getRegister_address() {
-        return register_address;
+        return student_address;
     }
 
     public void setRegister_address(String register_address) {
-        this.register_address = register_address;
+        this.student_address = register_address;
     }
 
     public String getRegister_email() {
-        return register_email;
+        return student_email;
     }
 
     public void setRegister_email(String register_email) {
-        this.register_email = register_email;
+        this.student_email = register_email;
     }
 
     public void setRegister_password(String register_password) {
-        this.register_password = register_password;
+        this.student_password = register_password;
     }
 
     public void setAuthorities(String role) {
@@ -86,19 +101,19 @@ public class Register {
     }
 
     public String getPassword() {
-        return this.register_password;
+        return this.student_password;
     }
 
     public String getUsername() {
-        return this.register_name;
+        return this.student_name;
     }
 
     public String getRegister_name() {
-        return this.register_name;
+        return this.student_name;
     }
 
     public String getRegister_password() {
-        return this.register_password;
+        return this.student_password;
     }
 
     public String getRole() {
@@ -111,8 +126,8 @@ public class Register {
 
     public String Display() {
 
-        return "\nid: " + this.register_id + "\nname: " + this.register_name + "\nemail: " + this.register_email
-                + "\naddress: " + this.register_address + "\npassword: " + this.register_password + "\ncourse: "
+        return "\nid: " + this.register_id + "\nname: " + this.student_name + "\nemail: " + this.student_email
+                + "\naddress: " + this.student_address + "\npassword: " + this.student_password + "\ncourse: "
                 + this.course_name + "\nrole: " + this.role;
 
     }
@@ -127,8 +142,8 @@ public class Register {
 
     public Boolean isValid() {
 
-        if (this.course_name.length() > 0 && this.register_address.length() > 0 && this.register_password.length() > 0
-                && this.register_email.length() > 0 && this.register_name.length() > 0) {
+        if (this.course_name.length() > 0 && this.student_address.length() > 0 && this.student_password.length() > 0
+                && this.student_email.length() > 0 && this.student_name.length() > 0) {
             return true;
         }
 

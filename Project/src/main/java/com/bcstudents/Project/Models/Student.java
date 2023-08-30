@@ -101,4 +101,15 @@ public class Student {
 
     }
 
+    public Boolean isValid() {
+
+        if (this.student_name.length() > 0 && this.student_address.length() > 0 && this.student_email.length() > 0
+                && this.student_password.length() > 0) {
+            return true;
+        }
+
+        return false;
+
+    }
+
 }

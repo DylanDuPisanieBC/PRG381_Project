@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.bcstudents.Project.Models.Register;
-import com.bcstudents.Project.Services.RegisterService;
+import com.bcstudents.Project.Models.Student;
+import com.bcstudents.Project.Services.StudentService;
 
 @Controller
 public class RegisterController {
@@ -17,7 +17,7 @@ public class RegisterController {
     BCryptPasswordEncoder encoder;
 
     @Autowired
-    RegisterService service;
+    StudentService service;
 
     @GetMapping("/register")
     public String register() {
@@ -25,15 +25,15 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String registerStudent(@ModelAttribute("registerForm") Register form, Model mode) {
+    public String registerStudent(@ModelAttribute("registerForm") Student form, Model mode) {
 
         encoder = new BCryptPasswordEncoder();
 
-        Register userToRegister = new Register(0, form.getUsername(), form.getRegister_address(),
-                form.getRegister_email(), encoder.encode(form.getPassword()), form.getCourse_name());
+        Student studentToRegister = new Student(0, form.getUsername(), form.getStudent_address(),
+                form.getStudent_email(), encoder.encode(form.getPassword()));
 
-        if (userToRegister.isValid() == true) {
-            Boolean added = service.AddRegistration(userToRegister);
+        if (studentToRegister.isValid() == true) {
+            Boolean added = service.AddStudent(studentToRegister);
 
             if (added) {
                 mode.addAttribute("registerSuccess", added);
