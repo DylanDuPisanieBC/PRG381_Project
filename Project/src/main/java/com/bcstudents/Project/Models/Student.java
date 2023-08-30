@@ -28,7 +28,7 @@ public class Student {
 
     public Student() {
         super();
-        this.role = "USER";
+        this.role = "ROLE_USER";
     }
 
     public Student(Integer student_id, String student_name, String student_address, String student_email,

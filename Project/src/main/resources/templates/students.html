@@ -20,7 +20,7 @@
     }
 
     .gradient2 {
-        background: linear-gradient(to top, #0C0C0C, #0A0610);
+        background: linear-gradient(to bottom, #131313, #070707);
     }
 
     .student-table th,
@@ -39,13 +39,22 @@
         color: #0C0C0C;
     }
 
-    .model-content{
-        background: rgba(12, 12, 12, 0.4);
+    .glass-effect-add{
+        background: rgba(58, 58, 58, 0.596);
         border-radius: 16px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(9.7px);
-        -webkit-backdrop-filter: blur(9.7px);
-        border: 1px solid rgba(12, 12, 12, 0.3);
+        backdrop-filter: blur(0.7px);
+        -webkit-backdrop-filter: blur(0.7px);
+        border: 1px solid rgba(24, 245, 24, 0.5);
+    }
+
+    .glass-effect-edit{
+        background: rgba(58, 58, 58, 0.596);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(0.7px);
+        -webkit-backdrop-filter: blur(0.7px);
+        border: 1px solid rgba(243, 183, 18, 0.616);
     }
 </style>
 
@@ -111,8 +120,8 @@
                             <td th:text="${student.getStudent_id()}"></td>
                             <td th:text="${student.getStudent_name()}"></td>
                             <td th:text="${student.getStudent_address()}"></td>
-                            <td th:text="${student.getStudent_email()}"></td>
-                            <td><button type="button" class="btn btn-outline-warning">
+                            <td class="student-email" th:text="${student.getStudent_email()}"></td>
+                            <td><button type="button" class="btn btn-outline-warning edit-button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path
@@ -150,11 +159,11 @@
 
             <div class="modal-dialog modal-dialog-centered"  role="document">
 
-                <div class="modal-content">
+                <div class="modal-content glass-effect-add">
 
                     <div class="modal-header">
 
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Student</h5>
+                        <h5 class="modal-title text-light" id="exampleModalLabel">Add New Student</h5>
 
                         <button type="button" class="btn btn-outline-danger close"  data-bs-dismiss="modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -169,7 +178,7 @@
 
                     <div class="modal-body">
 
-                        <form>
+                        <form name="studentFormAdd" method="post" role="form" th:action="@{/admin/students/add}">
 
                             <div class="form-group"></div>
 
@@ -180,16 +189,16 @@
                                 <div class="alert alert-success">Nope</div>
                             </div>
 
-                            <input placeholder="Name" type="text" class="form-control mb-3" id="student_name"
+                            <input placeholder="Name" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_name"
                                 name="student_name">
 
-                            <input placeholder="Address" type="text" class="form-control mb-3 " id="student_address"
+                            <input placeholder="Address" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_address"
                                 name="student_address">
 
-                            <input placeholder="Email" type="text" class="form-control mb-3" id="student_email"
+                            <input placeholder="Email" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_email"
                                 name="student_email">
 
-                            <input placeholder="Password" type="text" class="form-control mb-3" id="student_password"
+                            <input placeholder="Password" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_password"
                                 name="student_password">
 
                             <div class="col-md-6"><button class="btn btn-success">Add</button></div>
@@ -204,6 +213,69 @@
 
         </div>
 
+        <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered"  role="document">
+
+                <div class="modal-content glass-effect-edit">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title text-light" id="exampleModalLabel">Edit Student</h5>
+
+                        <button type="button" class="btn btn-outline-danger close"  data-bs-dismiss="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z">
+                                </path>
+                            </svg>
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <form name="studentFormEdit" method="post" role="form" th:action="@{/admin/students/edit}">
+
+                            <div class="form-group"></div>
+
+                            <div th:if="${addSuccess}">
+                                <div class="alert alert-danger">Yay! Registration worked.</div>
+                            </div>
+                            <div th:if="${addFailed}">
+                                <div class="alert alert-success">Nope</div>
+                            </div>
+
+                            <input placeholder="id" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_id_edit"
+                                name="student_id">
+
+                            <input placeholder="Name" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_name_edit"
+                                name="student_name">
+
+                            <input placeholder="Address" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_address_edit"
+                                name="student_address">
+
+                            <input placeholder="email" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_email_edit"
+                                name="student_email">
+
+                            <input placeholder="Change their password" type="text" class="form-control mb-3 bg-dark text-light" id="student_password_edit"
+                                name="student_password">
+
+                            <div class="col-md-6"><button class="btn btn-warning">edit</button></div>
+
+                    </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
         </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -217,5 +289,27 @@
     document.getElementById("LogoutButton").onclick = function () {
         location.href = "/logout";
     };
+
+    $(document).ready(function() {
+        $('.edit-button').click(function() {
+            var studentEmail = $(this).closest('tr').find('.student-email').text();
+            
+            $.ajax({
+                url: '/admin/students/getstudentdata', // Replace with your backend URL
+                method: 'GET',
+                data: { email: studentEmail },
+                success: function(response) {
+                    $('#student_id_edit').val(response.student_id);
+                    $('#student_name_edit').val(response.student_name);
+                    $('#student_address_edit').val(response.student_address);
+                    $('#student_email_edit').val(response.student_email);
+                    $('#editStudentModal').modal('show');
+                },
+                error: function(error) {
+                    console.log('Error fetching student data:', error);
+                }
+            });
+        });
+    });
 
 </script>

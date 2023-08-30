@@ -11,12 +11,15 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import com.bcstudents.Project.Models.Register;
 import com.bcstudents.Project.Models.Student;
 import com.bcstudents.Project.Repository.RegisterRepository;
 import com.bcstudents.Project.Repository.StudentsRepository;
+
 
 @Service
 public class StudentService implements UserDetailsService {
@@ -89,6 +92,13 @@ public class StudentService implements UserDetailsService {
       return false;
    }
 
+   public Student getStudent(String email) {
+
+      Student student = repo.findByUsernameOrEmail(email);
+      
+      return student;
+   }
+
    public List<Register> getAllStudentCourses(String email) {
 
       List<Register> courses = new ArrayList<Register>();
@@ -120,4 +130,56 @@ public class StudentService implements UserDetailsService {
 
    }
 
+   BCryptPasswordEncoder encoder;  
+
+   public void editStudent(Student student) {
+      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+      
+      //input student from form -> can be inserted or updated in database
+
+      List<Student> students = repo.findAll();
+      boolean emailUnique = true;
+      
+      for (Student s : students) {
+          if (s != student) {
+              if (s.getStudent_email().equals(student.getStudent_email())) {
+                  emailUnique = false;
+              }
+          }
+      }
+      
+      Student editedStudent = new Student();
+      
+      System.out.println("START EMAIL: " + student.getStudent_email());
+      
+      System.out.println("ID: " + editedStudent.getStudent_id());
+      if (emailUnique) {
+          editedStudent.setStudent_email(student.getStudent_email());
+      }else{
+         editedStudent.setStudent_email()
+      }
+
+      repo.find
+
+      System.out.println("EMAIL: " + editedStudent.getStudent_email());
+      if (!student.getPassword().isEmpty()) {
+          editedStudent.setStudent_password(repo.findByUsernameOrEmail(student.getStudent_email()).getPassword());
+      } else {
+          editedStudent.setStudent_password(encoder.encode(student.getPassword()));
+      }
+      System.out.println("PASS: " + editedStudent.getPassword());
+      editedStudent.setStudent_address(student.getStudent_address());
+      editedStudent.setStudent_name(student.getStudent_name());
+  
+      if (editedStudent.isValid()) {
+          System.out.println("EDITED USER IS VALID");
+      } else {
+          System.out.println("EDITED USER IS INVALID");
+      }
+  }
+  
+
 }
+
+//fix student edit on admin
+//make sure email and name reg is unique

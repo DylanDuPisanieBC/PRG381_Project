@@ -3,12 +3,14 @@ package com.bcstudents.Project.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bcstudents.Project.Models.Register;
 import com.bcstudents.Project.Models.Student;
@@ -63,6 +65,28 @@ public class AdministratorController {
 
     }
 
+    @GetMapping("/admin/students/getstudentdata")
+    public ResponseEntity<Student> adminStudents(@RequestParam String email) {
+
+        Student student = serviceStudents.getStudent(email);       
+        if(student != null) { 
+            return ResponseEntity.ok(student);
+            }else{
+               return ResponseEntity.notFound().build();
+            }
+    }
+
+    @PostMapping("/admin/students/edit")
+    public String adminStudentEdit(@ModelAttribute("studentFormEdit") Student form) {
+
+        Student student = form;       
+
+        serviceStudents.editStudent(student);
+
+       return "redirect:/admin/students";
+
+    }
+
     @GetMapping("/admin/students/remove/{id}")
     public String adminStudents(@PathVariable Integer id) {
 
@@ -89,7 +113,7 @@ public class AdministratorController {
     BCryptPasswordEncoder encoder;
 
     @PostMapping("/admin/students/add")
-    public Void addStudent(@ModelAttribute("studentForm") Student form, Model mode) {
+    public String addStudent(@ModelAttribute("studentFormAdd") Student form, Model mode) {
 
         encoder = new BCryptPasswordEncoder();
 
@@ -107,7 +131,7 @@ public class AdministratorController {
         } else {
             System.out.println("User Invalid");
         }
-        return null;
+        return "redirect:/admin/students";
     }
 
 }
