@@ -3,9 +3,12 @@ package com.bcstudents.Project.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.bcstudents.Project.Models.Register;
 import com.bcstudents.Project.Models.Student;
@@ -81,6 +84,30 @@ public class AdministratorController {
         serviceRegistration.declineRegistration(id);
 
         return "redirect:/admin/registrations";
+    }
+
+    BCryptPasswordEncoder encoder;
+
+    @PostMapping("/admin/students/add")
+    public Void addStudent(@ModelAttribute("studentForm") Student form, Model mode) {
+
+        encoder = new BCryptPasswordEncoder();
+
+        Student studentToRegister = new Student(0, form.getUsername(), form.getStudent_address(),
+                form.getStudent_email(), encoder.encode(form.getPassword()));
+
+        if (studentToRegister.isValid() == true) {
+            Boolean added = serviceStudents.AddStudent(studentToRegister);
+
+            if (added) {
+                mode.addAttribute("addSuccess", added);
+            } else {
+                mode.addAttribute("addFailed", !added);
+            }
+        } else {
+            System.out.println("User Invalid");
+        }
+        return null;
     }
 
 }

@@ -164,6 +164,13 @@
 
                             <div class="form-group"></div>
 
+                            <div th:if="${addSuccess}">
+                                <div class="alert alert-danger">Yay! Registration worked.</div>
+                            </div>
+                            <div th:if="${addFailed}">
+                                <div class="alert alert-success">Nope</div>
+                            </div>
+
                             <input placeholder="Name" type="text" class="form-control mb-3" id="student_name"
                                 name="student_name">
 
