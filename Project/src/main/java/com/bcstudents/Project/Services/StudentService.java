@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,12 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import com.bcstudents.Project.Models.Register;
 import com.bcstudents.Project.Models.Student;
 import com.bcstudents.Project.Repository.RegisterRepository;
 import com.bcstudents.Project.Repository.StudentsRepository;
-
 
 @Service
 public class StudentService implements UserDetailsService {
@@ -28,6 +28,9 @@ public class StudentService implements UserDetailsService {
    StudentsRepository repo;
    @Autowired
    RegisterRepository repoRegister;
+
+   
+   
 
    public Student getStudentById(int studentId) {
       return repo.findById(studentId).get();
@@ -67,6 +70,7 @@ public class StudentService implements UserDetailsService {
       if (findStudent(student) == false) {
          try {
             repo.save(student);
+
             return true;
          } catch (Exception e) {
             return false;
@@ -79,7 +83,9 @@ public class StudentService implements UserDetailsService {
 
       Student student = repo.findById(id).get();
 
-      if(student != null) { repo.delete(student);}
+      if (student != null) {
+         repo.delete(student);
+      }
 
    }
 
@@ -95,7 +101,7 @@ public class StudentService implements UserDetailsService {
    public Student getStudent(String email) {
 
       Student student = repo.findByUsernameOrEmail(email);
-      
+
       return student;
    }
 
@@ -130,56 +136,49 @@ public class StudentService implements UserDetailsService {
 
    }
 
-   BCryptPasswordEncoder encoder;  
+
 
    public void editStudent(Student student) {
-      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-      
-      //input student from form -> can be inserted or updated in database
+BCryptPasswordEncoder encoder;
+encoder = new BCryptPasswordEncoder();
 
       List<Student> students = repo.findAll();
       boolean emailUnique = true;
-      
+
       for (Student s : students) {
-          if (s != student) {
-              if (s.getStudent_email().equals(student.getStudent_email())) {
-                  emailUnique = false;
-              }
+          if (!s.getStudent_id().equals(student.getStudent_id()) &&
+                  s.getStudent_email().equals(student.getStudent_email())) {
+              emailUnique = false;
+              break;
           }
       }
-      
+
       Student editedStudent = new Student();
-      
-      System.out.println("START EMAIL: " + student.getStudent_email());
-      
-      System.out.println("ID: " + editedStudent.getStudent_id());
-      if (emailUnique) {
+      editedStudent.setStudent_id(student.getStudent_id());
+
+      if (emailUnique || student.getStudent_email().isEmpty()) {
           editedStudent.setStudent_email(student.getStudent_email());
-      }else{
-         editedStudent.setStudent_email()
-      }
-
-      repo.find
-
-      System.out.println("EMAIL: " + editedStudent.getStudent_email());
-      if (!student.getPassword().isEmpty()) {
-          editedStudent.setStudent_password(repo.findByUsernameOrEmail(student.getStudent_email()).getPassword());
       } else {
-          editedStudent.setStudent_password(encoder.encode(student.getPassword()));
+          editedStudent.setStudent_email(repo.findById(student.getStudent_id()).get().getStudent_email());
       }
-      System.out.println("PASS: " + editedStudent.getPassword());
+
+      if (!student.getPassword().isEmpty()) {
+          editedStudent.setStudent_password(encoder.encode(student.getPassword()));
+      } else {
+          editedStudent.setStudent_password(repo.findById(student.getStudent_id()).get().getPassword());
+      }
+
       editedStudent.setStudent_address(student.getStudent_address());
       editedStudent.setStudent_name(student.getStudent_name());
-  
+
       if (editedStudent.isValid()) {
+          repo.save(editedStudent);
           System.out.println("EDITED USER IS VALID");
       } else {
           System.out.println("EDITED USER IS INVALID");
       }
-  }
-  
-
+   }
 }
 
-//fix student edit on admin
-//make sure email and name reg is unique
+
+// make sure email and name reg is unique

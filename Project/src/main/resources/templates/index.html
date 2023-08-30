@@ -23,6 +23,9 @@
         <li><a href="#" class="nav-link px-2 link-light" style="font-size: 20px;">Noice Website</a></li>
     </ul>
     <div class="col-md-3 text-end">
+
+        <button id="RedirectButton" th:if="${showDashboard}" class="btn btn-outline-success me-2">Dashboard</button>
+
         <button id="LoginButton" class="btn btn-outline-primary me-2">Login</button>
         <button id="RegisterButton" class="btn btn-outline-primary me-2">Register</button>
     </div>
@@ -37,6 +40,8 @@
 </html>
 
 <script type="text/javascript">
+
+
     document.getElementById("LoginButton").onclick = function () {
         location.href = "/login";
     };
@@ -44,4 +49,11 @@
     document.getElementById("RegisterButton").onclick = function () {
         location.href = "/register";
     };
+if(document.getElementById("RedirectButton") != null){
+    document.getElementById("RedirectButton").onclick = function () {
+        location.href = "/redirectByRole ";
+    };
+}
+    
+
 </script>

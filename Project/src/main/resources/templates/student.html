@@ -33,7 +33,9 @@
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="#" class="nav-link px-2 link-light" style="font-size: 20px;">Noice Website</a></li>
     </ul>
-    <div class="col-md-3 text-end">
+    <div class="col-md-3 d-flex justify-content-end align-items-center">
+            
+        <button id="BackButton" class="btn btn-outline-warning me-2">Back</button>
         <button id="LogoutButton" class="btn btn-outline-warning me-2">Logout</button>
     </div>
 </header>
@@ -134,6 +136,9 @@
 </html>
 </body>
 <script type="text/javascript">
+    document.getElementById("BackButton").onclick = function () {
+        location.href = "/";
+    };
     document.getElementById("LogoutButton").onclick = function () {
         location.href = "/logout";
     };
