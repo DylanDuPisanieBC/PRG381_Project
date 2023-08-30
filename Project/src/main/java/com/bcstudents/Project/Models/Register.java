@@ -32,7 +32,7 @@ public class Register {
 
     public Register() {
         super();
-        this.role = "USER";
+        this.role = "ROLE_USER";
     }
 
     public Register(Integer register_id, String register_name, String register_address, String register_email,
@@ -50,6 +50,16 @@ public class Register {
 
     public String getStatus(){
         return this.status;
+    }
+
+    public Boolean getStatusBool(){
+        
+        if(this.status == "Pending"){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     public void setStatus(boolean state){

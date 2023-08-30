@@ -250,7 +250,7 @@
                                 <div class="alert alert-success">Nope</div>
                             </div>
 
-                            <input placeholder="id" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_id_edit"
+                            <input style="display: none;" placeholder="id" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_id_edit"
                                 name="student_id">
 
                             <input placeholder="Name" required="true" type="text" class="form-control mb-3 bg-dark text-light" id="student_name_edit"
@@ -264,6 +264,9 @@
 
                             <input placeholder="Change their password" type="text" class="form-control mb-3 bg-dark text-light" id="student_password_edit"
                                 name="student_password">
+
+                            <input style="display: none;" placeholder="Change their password" type="text" class="form-control mb-3 bg-dark text-light" id="student_email_original_edit"
+                                name="student_email_original">
 
                             <div class="col-md-6"><button class="btn btn-warning">edit</button></div>
 
@@ -308,6 +311,7 @@
                     $('#student_name_edit').val(response.student_name);
                     $('#student_address_edit').val(response.student_address);
                     $('#student_email_edit').val(response.student_email);
+                    $('#student_email_original_edit').val(response.student_email_original);
                     $('#editStudentModal').modal('show');
                 },
                 error: function(error) {

@@ -1,5 +1,6 @@
 package com.bcstudents.Project.Controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bcstudents.Project.Models.Register;
 import com.bcstudents.Project.Models.Student;
+import com.bcstudents.Project.Models.StudentEdit;
 import com.bcstudents.Project.Services.RegisterService;
 import com.bcstudents.Project.Services.StudentService;
 
@@ -58,28 +60,33 @@ public class AdministratorController {
     public String adminStudents(Model model) {
 
         List<Student> students = serviceStudents.getAllStudents();
-
+        
         model.addAttribute("students", students);
 
         return "students";
 
     }
 
-    @GetMapping("/admin/students/getstudentdata")
-    public ResponseEntity<Student> adminStudents(@RequestParam String email) {
 
-        Student student = serviceStudents.getStudent(email);       
+
+
+    @GetMapping("/admin/students/getstudentdata")
+    public ResponseEntity<StudentEdit> adminStudents(@RequestParam String email) {
+
+        Student student = serviceStudents.getStudent(email);      
+        StudentEdit studentEdit = new StudentEdit(student.getStudent_id(), student.getStudent_name(), student.getStudent_address(), student.getStudent_email(), student.getPassword());
+        
         if(student != null) { 
-            return ResponseEntity.ok(student);
+            return ResponseEntity.ok(studentEdit);
             }else{
                return ResponseEntity.notFound().build();
             }
     }
 
     @PostMapping("/admin/students/edit")
-    public String adminStudentEdit(@ModelAttribute("studentFormEdit") Student form) {
+    public String adminStudentEdit(@ModelAttribute("studentFormEdit") StudentEdit form) {
 
-        Student student = form;       
+        StudentEdit student = form;       
 
         serviceStudents.editStudent(student);
 

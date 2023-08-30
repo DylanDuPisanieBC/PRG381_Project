@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.bcstudents.Project.Models.Register;
 import com.bcstudents.Project.Models.Student;
+import com.bcstudents.Project.Models.StudentEdit;
 import com.bcstudents.Project.Repository.RegisterRepository;
 import com.bcstudents.Project.Repository.StudentsRepository;
 
@@ -137,10 +136,31 @@ public class StudentService implements UserDetailsService {
    }
 
 
+                                                                                                                                                        
+   public void editStudent(StudentEdit studentNew) {
+      BCryptPasswordEncoder encoder;
+      encoder = new BCryptPasswordEncoder();
 
-   public void editStudent(Student student) {
-BCryptPasswordEncoder encoder;
-encoder = new BCryptPasswordEncoder();
+      Student original = new Student(studentNew.getStudent_id(), studentNew.getStudent_name(), studentNew.getStudent_address(), studentNew.getStudent_email_original(), studentNew.getPassword());
+      
+      Student student = new Student(studentNew.getStudent_id(), studentNew.getStudent_name(), studentNew.getStudent_address(), studentNew.getStudent_email(), studentNew.getPassword());
+
+      List<Register> registerListOriginal = repoRegister.findAllByEmail(original.getStudent_email());
+
+      for (Register register : registerListOriginal) {
+
+         Register newRegister = new Register();
+
+         newRegister.setRegister_id(register.getRegister_id());
+         newRegister.setRegister_name(student.getStudent_name());
+         newRegister.setRegister_address(student.getStudent_address());
+         newRegister.setRegister_email(student.getStudent_email());
+         newRegister.setRegister_password(student.getPassword());
+         newRegister.setStatus(register.getStatusBool());
+
+         repoRegister.save(newRegister);
+
+      }
 
       List<Student> students = repo.findAll();
       boolean emailUnique = true;
