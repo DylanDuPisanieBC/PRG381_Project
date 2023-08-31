@@ -10,24 +10,36 @@
     .student-table {
         border-collapse: collapse;
         width: 100%;
+        background-color: #1A1A1A;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 5px 5px 6px rgba(0, 0, 0, 1);
+
+    }
+
+    .gradient2 {
+        background: linear-gradient(to bottom, #131313, #070707);
+    }
+    .gradient3 {
+        background: linear-gradient(to bottom, #0a0a0a, #070707);
     }
 
     .student-table th,
     .student-table td {
-        border: 1px solid #181818;
+        border: 1px solid #0C0C0C;
         padding: 8px;
-        text-align: left;
+        text-align: center;
+        color: white;
     }
 
     .student-table th {
-        background-color: #303030;
-        color: white;
+        background-color: #0c0c0c;
     }
 </style>
 
-<body>
+<body class="gradient2">
     <header
-        class="bg-dark d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        class=" d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom gradient3">
         <div class="col-md-3 mb-2 mb-md-0">
             <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none" style="margin-left: 20px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-body-text"
@@ -51,7 +63,7 @@
         <div class="container">
             <div class="row">
 
-                <h2>Registrations</h2>
+                <h2 class="text-light">Registrations</h2>
                 <table class="student-table">
                     <thead>
                         <tr>

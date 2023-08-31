@@ -1,6 +1,5 @@
 package com.bcstudents.Project.Controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +75,7 @@ public class AdministratorController {
         Student student = serviceStudents.getStudent(email);      
         StudentEdit studentEdit = new StudentEdit(student.getStudent_id(), student.getStudent_name(), student.getStudent_address(), student.getStudent_email(), student.getPassword());
         
-        if(student != null) { 
+        if(student.getStudent_id() != null) { 
             return ResponseEntity.ok(studentEdit);
             }else{
                return ResponseEntity.notFound().build();

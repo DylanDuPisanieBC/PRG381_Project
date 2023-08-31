@@ -7,9 +7,17 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
+<style>
+    .gradient2 {
+        background: linear-gradient(to bottom, #131313, #070707);
+    }
+    .gradient3 {
+        background: linear-gradient(to bottom, #0a0a0a, #070707);
+    }
+</style>
 
 <header
-    class="bg-dark d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    class=" d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom gradient3 ">
     <div class="col-md-3 mb-2 mb-md-0">
         <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none" style="margin-left: 20px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-body-text"
@@ -26,34 +34,48 @@
 
         <button id="RedirectButton" th:if="${showDashboard}" class="btn btn-outline-success me-2">Dashboard</button>
 
-        <button id="LoginButton" class="btn btn-outline-primary me-2">Login</button>
-        <button id="RegisterButton" class="btn btn-outline-primary me-2">Register</button>
+        <button id="LoginButton" th:if="${showLogin}" class="btn btn-outline-primary me-2">Login</button>
+        <button id="RegisterButton" th:if="${showLogin}" class="btn btn-outline-primary me-2">Register</button>
+        <button id="LogoutButton" th:if="${showDashboard}" class="btn btn-outline-warning me-2">Logout</button>
     </div>
 </header>
 
 
-<body>
-    <h1 style="margin-left: 50px;">How to create a massive headache</h1>
+<body class="gradient2">
+    <h1 class="text-light" style="margin-left: 50px;">How to create a massive headache</h1>
     <a class="link-underline-info" style="margin-left:50px; font-size: 30px;">launch springboot.exe</a>
 </body>
 
 </html>
 
 <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        var loginButton = document.getElementById("LoginButton");
+        if (loginButton) {
+            loginButton.onclick = function() {
+                location.href = "/login";
+            };
+        }
 
+        var registerButton = document.getElementById("RegisterButton");
+        if (registerButton) {
+            registerButton.onclick = function() {
+                location.href = "/register";
+            };
+        }
 
-    document.getElementById("LoginButton").onclick = function () {
-        location.href = "/login";
-    };
+        var redirectButton = document.getElementById("RedirectButton");
+        if (redirectButton) {
+            redirectButton.onclick = function() {
+                location.href = "/redirectByRole";
+            };
+        }
 
-    document.getElementById("RegisterButton").onclick = function () {
-        location.href = "/register";
-    };
-if(document.getElementById("RedirectButton") != null){
-    document.getElementById("RedirectButton").onclick = function () {
-        location.href = "/redirectByRole ";
-    };
-}
-    
-
+        var logoutButton = document.getElementById("LogoutButton");
+        if (logoutButton) {
+            logoutButton.onclick = function() {
+                location.href = "/logout";
+            };
+        }
+    });
 </script>

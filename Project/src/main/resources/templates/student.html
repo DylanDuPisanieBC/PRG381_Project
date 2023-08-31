@@ -7,20 +7,24 @@
 </head>
 
 <style>
+    .text-orange {
+        color: orangered;
+    }
 
-.text-orange {
-    color: orangered;
-}
+    .text-green {
+        color: green;
+    }
 
-.text-green {
-    color: green;
-}
-
-
+    .gradient2 {
+        background: linear-gradient(to bottom, #131313, #070707);
+    }
+    .gradient3 {
+        background: linear-gradient(to bottom, #0a0a0a, #070707);
+    }
 </style>
 
 <header
-    class="bg-dark d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    class=" d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom gradient3">
     <div class="col-md-3 mb-2 mb-md-0">
         <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none" style="margin-left: 20px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-body-text"
@@ -34,104 +38,107 @@
         <li><a href="#" class="nav-link px-2 link-light" style="font-size: 20px;">Noice Website</a></li>
     </ul>
     <div class="col-md-3 d-flex justify-content-end align-items-center">
-            
+
         <button id="BackButton" class="btn btn-outline-warning me-2">Back</button>
         <button id="LogoutButton" class="btn btn-outline-warning me-2">Logout</button>
     </div>
 </header>
-<body  style="background-color: #202020;">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<div class="container">
-    <div class="row">
-        <div class="card mb-4 shadow" style="width: 60%;">
-            <div class="card-body">
-                <div class="row">
-                    <p class="mb-4" style="font-size: 25px;">Student Info</p>
-                    <div class="col-sm-3">
-                        <p class="mb-0">Name</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p class="text-muted mb-0"><span th:text="${student.getStudent_name()}"></span></p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="mb-0">Email</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p class="text-muted mb-0"><span th:text="${student.getStudent_email()}"></span></p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="mb-0">Address</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p class="text-muted mb-0"><span th:text="${student.getStudent_address()}"></span></p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-    <div class="card mb-4 shadow" style="width: 30%;">
-        <p class="m-3" style="font-size: 25px;">Register for a Course</p>
-        <div class="form-group ms-4 mb-4" style="display: flex; flex-direction: column;">
-            <label class="control-label" for="course_name">Choose a course</label>
-            <form  method="post" id="courseInfo" role="form" th:action="@{/student/{id}(id=${id})}">
-            <select id="course_name" name="course_name" style="width: 120px;">
-                <option value="LPR381">LPR381</option>
-                <option value="PRG381">PRG381</option>
-                <option value="MLG381">MLG381</option>
-                <option value="SEN381">SEN381</option>
-                <option value="WPR381">WPR381</option>
-                <option value="PROJ381">PROJ381</option>
-            </select>
-            <button type="submit" class="btn btn-success align-self-center">Register</button>
-            </form>
-        </div>
-    </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-4" style="padding: 0px;">
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <div class="row">
-                    <p class="mb-4" style="font-size: 25px;">Courses Info</p>
-                </div>
-                <hr>
-                <div th:each="register : ${courses}">
+<body class="gradient2">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div class="container">
+        <div class="row">
+            <div class="card mb-4 shadow" style="width: 60%;">
+                <div class="card-body">
+                    <div class="row">
+                        <p class="mb-4" style="font-size: 25px;">Student Info</p>
+                        <div class="col-sm-3">
+                            <p class="mb-0">Name</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0"><span th:text="${student.getStudent_name()}"></span></p>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col-sm-3">
-                            <p class="text-muted mb-0" th:text="${register.getCourse_name()}"></p>
+                            <p class="mb-0">Email</p>
                         </div>
-                        <div class="col-sm-5">
-                            <p class="mb-0" th:text="${register.getStatus()}" th:classappend="${register.getStatus() == 'Pending' ? 'text-orange' : (register.getStatus() == 'Active' ? 'text-green' : '')}"></p>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0"><span th:text="${student.getStudent_email()}"></span></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Address</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0"><span th:text="${student.getStudent_address()}"></span></p>
                         </div>
                     </div>
                     <hr>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="card mb-4 shadow" style="width: 50%;">
-            <div class="card-body">
-                <p>If your course is not in the list, it has been declined!</p>
+
+        <div class="row">
+            <div class="card mb-4 shadow" style="width: 30%;">
+                <p class="m-3" style="font-size: 25px;">Register for a Course</p>
+                <div class="form-group ms-4 mb-4" style="display: flex; flex-direction: column;">
+                    <label class="control-label" for="course_name">Choose a course</label>
+                    <form method="post" id="courseInfo" role="form" th:action="@{/student/{id}(id=${id})}">
+                        <select id="course_name" name="course_name" style="width: 120px;">
+                            <option value="LPR381">LPR381</option>
+                            <option value="PRG381">PRG381</option>
+                            <option value="MLG381">MLG381</option>
+                            <option value="SEN381">SEN381</option>
+                            <option value="WPR381">WPR381</option>
+                            <option value="PROJ381">PROJ381</option>
+                        </select>
+                        <button type="submit" class="btn btn-success align-self-center">Register</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
 
-    
-        
+        <div class="row">
+            <div class="col-lg-4" style="padding: 0px;">
+                <div class="card mb-4 shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <p class="mb-4" style="font-size: 25px;">Courses Info</p>
+                        </div>
+                        <hr>
+                        <div th:each="register : ${courses}">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="text-muted mb-0" th:text="${register.getCourse_name()}"></p>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="mb-0" th:text="${register.getStatus()}"
+                                        th:classappend="${register.getStatus() == 'Pending' ? 'text-orange' : (register.getStatus() == 'Active' ? 'text-green' : '')}">
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4 shadow" style="width: 50%;">
+                    <div class="card-body">
+                        <p>If your course is not in the list, it has been declined!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    
+
+
+
+
 
 </html>
 </body>

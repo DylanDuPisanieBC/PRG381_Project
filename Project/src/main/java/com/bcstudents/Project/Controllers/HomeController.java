@@ -20,9 +20,11 @@ public class HomeController {
         if (authentication != null) {
 
             model.addAttribute("showDashboard", true);
+            model.addAttribute("showLogin", false);
         }
         else {
             model.addAttribute("showDashboard", false);
+            model.addAttribute("showLogin", true);
         }
         
 

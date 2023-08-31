@@ -5,9 +5,16 @@
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<style>
+    .gradient2 {
+        background: linear-gradient(to bottom, #131313, #070707);
+    }
+    .gradient3 {
+        background: linear-gradient(to bottom, #0a0a0a, #070707);
+    }
+</style>
+<body class="gradient2">
+    <nav class="navbar navbar-expand-lg navbar-dark gradient3" >
         <div class="container-fluid">
             <a class="navbar-brand">Register your account</a>
             <div class="col-md-3 text-end">
@@ -24,13 +31,13 @@
     <br />
     <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-4 offset-md-4">
 
                 <div th:if="${registerSuccess}">
-                    <div class="alert alert-danger">Yay! Registration worked.</div>
+                    <div class="alert alert-success">Yay! Registration worked.</div>
                 </div>
                 <div th:if="${registerFailed}">
-                    <div class="alert alert-success">Nope</div>
+                    <div class="alert alert-danger">Nope</div>
                 </div>
 
                 <div class="card">
@@ -66,7 +73,7 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <button type="submit" class="btn btn-primary">Register</button>
+                                <button type="submit" class="btn btn-outline-success">Register</button>
                             </div>
                         </form>
                     </div>

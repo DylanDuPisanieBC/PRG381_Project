@@ -37,7 +37,7 @@ public class StudentController {
 
         Student student = repo.getStudentById(id);
 
-        Boolean added = repo.registerForCourse(student.getStudent_email(), courseName);
+        repo.registerForCourse(student.getStudent_email(), courseName);
 
         return "redirect:/student/" + id;
     }
